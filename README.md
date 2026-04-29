@@ -1,10 +1,9 @@
-```markdown
-# PCA Parallélisée pour la Reconnaissance d’Activité Humaine (HAR)
+# PCA Parallélisée pour la Reconnaissance d'Activité Humaine (HAR)
 
 [![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Implémentation from scratch de l’Analyse en Composantes Principales (ACP) avec parallélisation du calcul de la matrice de covariance, appliquée au dataset *Human Activity Recognition with Smartphones* (UCI). Visualisation de la séparabilité des classes et classification SVM.**
+**Implémentation from scratch de l'Analyse en Composantes Principales (ACP) avec parallélisation du calcul de la matrice de covariance, appliquée au dataset *Human Activity Recognition with Smartphones* (UCI). Visualisation de la séparabilité des classes et classification SVM.**
 
 ---
 
@@ -29,7 +28,7 @@
 
 ## 🎯 Aperçu du projet
 
-Ce projet démontre comment **réduire drastiquement la dimension d’un problème de classification** (561 attributs de capteurs smartphones) tout en conservant l’essentiel de la variance, grâce à une ACP construite sans bibliothèque dédiée. Le calcul de la matrice de covariance, étape la plus coûteuse, est **parallélisé avec `multiprocessing`** pour exploiter les architectures multicœurs.
+Ce projet démontre comment **réduire drastiquement la dimension d'un problème de classification** (561 attributs de capteurs smartphones) tout en conservant l'essentiel de la variance, grâce à une ACP construite sans bibliothèque dédiée. Le calcul de la matrice de covariance, étape la plus coûteuse, est **parallélisé avec `multiprocessing`** pour exploiter les architectures multicœurs.
 
 Les objectifs professionnels :
 - Maîtrise du **calcul scientifique** et du **parallélisme en Python**.
@@ -47,7 +46,7 @@ Nous utilisons le dataset **Human Activity Recognition Using Smartphones** (UCI 
   - WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS
   - SITTING, STANDING, LAYING
 - **Capteurs** : accéléromètre et gyroscope (50 Hz)
-- **Taille** : 7 352 exemples d’entraînement, 2 947 de test
+- **Taille** : 7 352 exemples d'entraînement, 2 947 de test
 - **Features** : 561 attributs temporels et fréquentiels
 
 ---
@@ -67,7 +66,7 @@ Nous utilisons le dataset **Human Activity Recognition Using Smartphones** (UCI 
 - La matrice \( X \) est découpée en **blocs de lignes**.
 - Chaque bloc est envoyé à un processus du pool `multiprocessing.Pool` pour calculer \( X_{bloc}^T X_{bloc} \) (produit local).
 - Les résultats partiels sont **sommés sur le processus maître**, puis divisés par \( n-1 \).
-- La taille des blocs s’adapte automatiquement au nombre de cœurs (`cpu_count()`).
+- La taille des blocs s'adapte automatiquement au nombre de cœurs (`cpu_count()`).
 
 ### Classification
 
@@ -75,7 +74,7 @@ Un **SVM linéaire** (`LinearSVC`, sklearn) est entraîné sur :
 - Les 561 features brutes
 - Les 50 premières composantes principales (captant ~95 % de variance)
 
-Métriques mesurées : **accuracy**, **temps d’entraînement**, **rapport de classification**.
+Métriques mesurées : **accuracy**, **temps d'entraînement**, **rapport de classification**.
 
 ---
 
@@ -135,7 +134,7 @@ Le programme :
 - Parallélise le calcul de la covariance (utilisation de tous les cœurs disponibles).
 - Affiche le temps de calcul et la variance expliquée.
 - Génère deux visualisations :
-  1. Projection 2D des données d’entraînement sur les deux premières composantes principales.
+  1. Projection 2D des données d'entraînement sur les deux premières composantes principales.
   2. Courbe de variance expliquée par composante.
 - Entraîne un SVM sur les données brutes et sur 50 composantes PCA, puis compare les performances.
 
@@ -233,7 +232,7 @@ Accuracy: 0.9582 | F1-score: 0.9579
 
 ---
 
-## � Troubleshooting
+## 🔧 Troubleshooting
 
 ### Problème : Les fichiers CSV ne sont pas trouvés
 
@@ -283,7 +282,7 @@ conda install numpy pandas matplotlib scikit-learn
 
 ---
 
-## �📚 Crédits & Références
+## 📚 Crédits & Références
 
 - **Dataset** :  
   [UCI Machine Learning Repository - Human Activity Recognition Using Smartphones](https://archive.ics.uci.edu/ml/datasets/human+activity+recognition+using+smartphones)  
